@@ -39,6 +39,7 @@ fun Canvas.drawZSBNode(i : Int, scale : Float, paint : Paint) {
     val sc1 : Float = scale.divideScale(0, 2)
     val sc2 : Float = scale.divideScale(1, 2)
     val wGap : Float = size / (bars + 1)
+    paint.color = color 
     save()
     translate(gap * (i + 1), h/2)
     rotate(90f * sc2)
@@ -120,7 +121,7 @@ class ZSlideBarStepView(ctx : Context) : View(ctx) {
         }
     }
 
-    data class ZSBSNode(var i : Int, val state : State = State()) {
+    data class ZSBSNode(var i : Int = 0, val state : State = State()) {
 
         private var next : ZSBSNode? = null
 
@@ -132,7 +133,7 @@ class ZSlideBarStepView(ctx : Context) : View(ctx) {
 
         fun addNeighbor() {
             if (i < nodes - 1) {
-                next = ZSBSNode(0)
+                next = ZSBSNode(i + 1)
                 next?.prev = this
             }
         }
@@ -167,7 +168,7 @@ class ZSlideBarStepView(ctx : Context) : View(ctx) {
 
     data class ZSlideBarStep(var i : Int) {
 
-        private val root : ZSBSNode = ZSBSNode(0)
+        private val root : ZSBSNode = ZSBSNode()
         private var curr : ZSBSNode = root
         private var dir : Int = 1
 
@@ -215,7 +216,7 @@ class ZSlideBarStepView(ctx : Context) : View(ctx) {
         fun create(activity: Activity) : ZSlideBarStepView {
             val view : ZSlideBarStepView = ZSlideBarStepView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
 }
