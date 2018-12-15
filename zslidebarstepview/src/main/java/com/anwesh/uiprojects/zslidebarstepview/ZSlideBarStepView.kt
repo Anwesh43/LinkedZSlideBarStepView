@@ -210,4 +210,12 @@ class ZSlideBarStepView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+        fun create(activity: Activity) : ZSlideBarStepView {
+            val view : ZSlideBarStepView = ZSlideBarStepView(activity)
+            activity.setContentView(view)
+            return view 
+        }
+    }
 }
