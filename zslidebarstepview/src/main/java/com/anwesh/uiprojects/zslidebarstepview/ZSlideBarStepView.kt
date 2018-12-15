@@ -19,6 +19,7 @@ val sizeFactor : Int = 4
 val color : Int = Color.parseColor("#3498db")
 val scGap : Float = 0.05f
 val scDiv : Double = 0.51
+val DELAY : Long = 25
 
 fun Int.getInverse() : Float = 1f / this
 
@@ -39,7 +40,7 @@ fun Canvas.drawZSBNode(i : Int, scale : Float, paint : Paint) {
     val sc1 : Float = scale.divideScale(0, 2)
     val sc2 : Float = scale.divideScale(1, 2)
     val wGap : Float = size / (bars + 1)
-    paint.color = color 
+    paint.color = color
     save()
     translate(gap * (i + 1), h/2)
     rotate(90f * sc2)
@@ -99,7 +100,7 @@ class ZSlideBarStepView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(DELAY)
                     view.invalidate()
                 } catch (ex : Exception) {
 
