@@ -186,4 +186,26 @@ class ZSlideBarStepView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : ZSlideBarStepView) {
+        private val animator : Animator = Animator(view)
+
+        private val zsbs : ZSlideBarStep = ZSlideBarStep(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            zsbs.draw(canvas, paint)
+            animator.animate {
+                zsbs.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            zsbs.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
